@@ -1,0 +1,89 @@
+﻿@*
+
+*@
+@{
+}
+
+@model IEnumerable<APL.Models.Club>
+
+<h1 class="text-danger">APL Clubs list</h1>
+
+<a asp-action="AddNewClub" asp-controller="Clubs" class="btn btn-block btn-danger">ADD CLUB</a>
+
+@if (Model.Count() == 0) // перевірка наявності збережених клубів у БД
+{
+    <p><h2 class="text-white">No CLUBS yet in database</h2></p>
+}
+else
+{
+    <table class="table table-bordered table-striped" id="table-command">
+        <tr class="text-danger bg-white">
+            <th>#</th>
+            <th class="text-center">CLUB NAME</th>
+            <th class="text-center">CLUB CREST</th>
+            <th class="text-center">CLUB TOWN</th>
+            <th class="text-center">HOME STADIUM</th>
+            <th>MAIN COACH</th>
+            <th class="text-center">CLUB WEBSITE</th>
+        </tr>
+        @{
+            int i = 0;
+            foreach (var club in Model)
+            {
+                string clubWebsiteShort = club.ClubWebsite.Substring(12);
+
+                i++;
+                if (i % 2 == 0)
+                {
+                    <tr>
+                        <td class="align-middle text-center bg-white">@i</td>
+                        @*<td class="align-middle text-center">@club.ClubName</td>*@
+                        <td class="align-middle text-center bg-white">
+                            <h4><a asp-action="SingleClub" asp-controller="Clubs" asp-route-Id="@club.Id" class="text-danger">@club.ClubName</a></h4>
+                        </td>
+                        <td class="bg-white">
+                            <img class="card-img-top" src="@club.ClubCrest" alt="CLUB CREST" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                        </td>
+                        @*<td class="align-middle text-center bg-white">@club.ClubTown</td>*@
+                        <td class="align-middle text-center bg-white">@club.Town.TownName</td>
+                        <td class="align-middle text-center bg-white"><h4>@*@club.ClubHomeStadium*@</h4></td>
+                        @*- відображення тренера та посилання на його особисту сторінку ---------------*@
+                        @*<td class="align-middle text-center bg-white">@club.Coach.CoachFullName</td>*@
+                        <td class="align-middle text-center bg-white">
+                            <a asp-action="Details" asp-controller="Coaches" asp-route-Id="@club.CoachId" class="text-danger">@club.Coach.CoachFullName</a>
+                        </td>
+                        @*-----------------------------------------------------------------------------*@
+                        <td class="align-middle text-center bg-white"><a href="@club.ClubWebsite">@clubWebsiteShort</a></td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td class="align-middle text-center bg-light">@i</td>
+                        <td class="align-middle text-center bg-light"><h4><a asp-action="SingleClub" asp-controller="Clubs" asp-route-Id="@club.Id" class="text-danger">@club.ClubName</a></h4></td>
+                        <td class="bg-light"><img class="card-img-top" src="@club.ClubCrest" alt="CLUB CREST" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" /></td>
+                        @*<td class="align-middle text-center bg-light">@club.ClubTown</td>*@
+                        <td class="align-middle text-center bg-light">@club.Town.TownName</td>
+                        <td class="align-middle text-center bg-light"><h4>@*@club.ClubHomeStadium*@</h4></td>
+                        @*- відображення тренера та посилання на його особисту сторінку ---------------*@
+                        @*<td>@club.C</td>*@
+                        @*<td class="align-middle text-center bg-light">@club.Coach.CoachFullName</td>*@
+                        <td class="align-middle text-center bg-light">
+                            <a asp-action="Details" asp-controller="Coaches" asp-route-Id="@club.CoachId" class="text-danger">@club.Coach.CoachFullName</a>
+                        </td>
+                        @*-----------------------------------------------------------------------------*@
+                        <td class="align-middle text-center bg-light"><a href="@club.ClubWebsite">@clubWebsiteShort</a></td>
+                    </tr>
+                }
+            }
+            @*<tr>
+                    <td class="align-middle text-center bg-light"></td>
+                    <td class="align-middle text-center bg-light"></td>
+                    <td class="bg-light"></td>
+                    <td class="align-middle text-center bg-light"></td>
+                    <td class="align-middle text-center bg-light"></td>
+                    <td class="align-middle text-center bg-light"></td>
+                </tr>*@
+        }
+    </table>
+}

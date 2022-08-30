@@ -1,0 +1,31 @@
+﻿@model APL.Models.Town
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-white">Details</h1>
+
+<div>
+    <h4 class="text-white">City</h4>
+    <hr />
+    <dl class="row bg-white">
+        <dt class = "col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.TownName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TownName)
+        </dd>
+        <dt class = "col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.TownDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TownDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TownId" class="btn btn-primary">EDIT INFO</a> |
+    <a asp-action="Index" class="btn btn-danger">Back to CITIES List</a>
+</div>

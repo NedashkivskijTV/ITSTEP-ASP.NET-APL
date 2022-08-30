@@ -1,0 +1,60 @@
+﻿@model APL.Models.Club
+
+<div class="container">
+    <h2 class="text-white">DELETE CLUB</h2>
+    <h3 class="text-white">Are you sure you want to delete club information?</h3>
+
+    <div class="row text-white">
+        <form method="post" asp-action="DeleteClub">
+            <input type="hidden" asp-for="Id" />
+            @*<div class="form-group">
+                    <label for="Id">Id</label>
+                    <input asp-for="Id" type="text" class="form-control" id="Id" readonly>
+                </div>*@
+            <div class="form-group">
+                <label for="clubName">CLUB NAME</label>
+                <input asp-for="ClubName" type="text" class="form-control" id="clubName" readonly>
+            </div>
+            <div class="form-group">
+                <label for="clubNickname">CLUB NICKNAME</label>
+                <input asp-for="ClubNickname" type="text" class="form-control" id="clubNickname" readonly>
+            </div>
+            <div class="form-group">
+                <label for="clubCrest">CLUB CREST</label>
+                <input asp-for="ClubCrest" type="text" class="form-control" id="clubCrest" readonly>
+            </div>
+            @*- виведення міста - вибір з dropdownbox ------------------*@
+            <div class="form-group">
+                <label for="clubTown">CLUB TOWN</label>
+                @*<input asp-for="ClubTown" type="text" class="form-control" id="clubTown" readonly>*@
+                <input value="@ViewBag.clubtown" type="text" class="form-control" id="clubTown" readonly>
+            </div>
+            @*------------------------------------------------------*@
+            @*<div class="form-group">
+                <label for="clubHomeStadium">CLUB HOME STADIUM</label>
+                <input asp-for="ClubHomeStadium" type="text" class="form-control" id="clubHomeStadium" readonly>
+            </div>*@
+            @*- виведення тренера - вибір зі списка dropdownbox ------------------*@
+            <div class="form-group">
+                <label for="ClubCoach">CLUB COACH</label>
+                <input value="@ViewBag.clubcoach" type="text" class="form-control" id="ClubCoach" readonly>
+                @*<select asp-for="CoachId" asp-items="@ViewBag.clubcoach" class="form-control" id="ClubCoach"></select>*@
+            </div>
+            @*------------------------------------------------------*@
+            <div class="form-group">
+                <label for="clubWebsite">CLUB WEBSITE</label>
+                <input asp-for="ClubWebsite" type="text" class="form-control" id="clubWebsite" readonly>
+            </div>
+            <div class="form-group">
+                <label for="clubDescription">CLUB DESCRIPTION</label>
+                <textarea asp-for="ClubDescription" type="text" cols="70" class="form-control" id="clubDescription" readonly></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-outline-danger">DELETE CLUB INFO</button>
+            <a asp-action="SingleClub" asp-controller="Clubs" asp-route-Id="@Model.Id" class="btn btn-info">BACK CLUB INFO</a>
+            <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">BACK TO CLUBS LIST</a>
+        </form>
+    </div>
+</div>
+
+@*<a asp-action="SingleClub" asp-controller="Clubs" asp-route-Id="@club.Id" class="text-danger">@club.ClubName</a>*@

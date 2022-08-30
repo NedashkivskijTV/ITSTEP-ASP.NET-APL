@@ -1,0 +1,41 @@
+﻿@model APL.Models.Town
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-danger">Add City to list</h1>
+
+<h4>@*Town*@</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4 text-white">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TownName" class="control-label"></label>
+                <span asp-validation-for="TownName" class="text-danger"></span>
+                <input asp-for="TownName" class="form-control" placeholder="Enter the name of the city"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownDescription" class="control-label"></label>
+                @*<input asp-for="TownDescription" class="form-control" />*@
+                @*<span asp-validation-for="TownDescription" class="text-danger"></span>*@
+                <textarea asp-for="TownDescription" type="text" cols="70" rows="7" class="form-control" id="townDescription" placeholder="Enter a few words of description"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ADD" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-danger">LIST OF CITIES</a>
+    <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">APL CLUBS</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

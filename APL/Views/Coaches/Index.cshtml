@@ -1,0 +1,77 @@
+﻿@model IEnumerable<APL.Models.Coach>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-danger">Coach list</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-block btn-danger">Add COACH</a>
+</p>
+<table class="table">
+    <thead>
+        <tr class="text-danger bg-light align-middle text-center">
+            <th>
+                @*@Html.DisplayNameFor(model => model.CoachSurname)*@
+                @Html.DisplayNameFor(model => model.CoachFullName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.CoachName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CoachPatronymic)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.CoachBirthday)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.CoachDescription)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.CoachPhoto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) 
+        {
+            <tr class="text-danger bg-white">
+                <td class="align-middle text-center">
+                    @*@Html.DisplayFor(modelItem => item.CoachSurname)*@
+                    @Html.DisplayFor(modelItem => item.CoachFullName)
+                </td>
+                @*<td class="align-middle text-center">
+                    @Html.DisplayFor(modelItem => item.CoachName)
+                </td>
+                <td class="align-middle text-center">
+                    @Html.DisplayFor(modelItem => item.CoachPatronymic)
+                </td>*@
+                <td class="align-middle text-center">
+                    @*@Html.DisplayFor(modelItem => item.CoachBirthday.ToShortDateString())*@
+                    @item.CoachBirthday.ToShortDateString()
+                </td>
+                @*<td style="max-width: 100px; word-break: break-all;">
+                    @Html.DisplayFor(modelItem => item.CoachDescription)
+                </td>*@
+                <td class="align-middle text-center">
+                   @if (!String.IsNullOrEmpty(@item.CoachPhoto)) { 
+                        @*@Html.DisplayFor(modelItem => item.CoachPhoto)*@
+                        <img src="@Html.DisplayFor(modelItem => item.CoachPhoto)" alt="Coach photo" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                    }
+                    else
+                    {
+                        <img src="/img/coach.png" alt="Coach photo" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                    }
+                </td>
+                <td class="align-middle text-center">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.CoachId">Edit</a> |
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.CoachId">Details</a> |
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.CoachId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

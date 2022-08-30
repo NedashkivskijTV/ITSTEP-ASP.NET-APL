@@ -1,0 +1,43 @@
+﻿@model APL.Models.Town
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-white">Edit City info</h1>
+
+@*<h4>Town</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TownId" />
+            <div class="form-group">
+                <label asp-for="TownName" class="control-label text-white"></label>
+                <input asp-for="TownName" class="form-control" />
+                <span asp-validation-for="TownName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownDescription" class="control-label text-white"></label>
+                @*<input asp-for="TownDescription" class="form-control" />
+                <span asp-validation-for="TownDescription" class="text-danger"></span>*@
+                <textarea asp-for="TownDescription" cols="70" rows="7" class="form-control" id="TownDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="SAVE CHANGES" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-danger">CITIES LIST</a>
+    <a class="btn btn-danger" asp-action="Details" asp-route-id="@Model.TownId">CITY INFO</a>
+    <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">APL CLUBS</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

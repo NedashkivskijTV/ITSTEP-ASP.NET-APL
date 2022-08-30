@@ -1,0 +1,60 @@
+﻿@model APL.Models.News
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-white">Details</h1>
+
+<div>
+    @*<h4 class="text-white">News</h4>*@
+    <hr />
+    <p>
+        @if (!String.IsNullOrEmpty(@Model.NewsImage))
+        {
+            <img src="@Html.DisplayFor(modelItem => Model.NewsImage)" alt="Coach photo" style="width: 100%; max-width: 500px; display: block;" data-holder-rendered="true" />
+        }
+        else
+        {
+            <img src="/img/APL_2.png" alt="News image" style="width: 100%; max-width: 500px; display: block;" data-holder-rendered="true" />
+        }
+    </p>
+
+    <dl class="row bg-white">
+        <dt class="col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.NewsTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NewsTitle)
+        </dd>
+        <dt class="col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.NewsText)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NewsText)
+        </dd>
+        <dt class="col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.NewsAuthor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NewsAuthor)
+        </dd>
+        @*<dt class="col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.NewsImage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NewsImage)
+        </dd>*@
+        <dt class="col-sm-2 text-danger">
+            @Html.DisplayNameFor(model => model.NewsCreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NewsCreationDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.NewsId" class="btn btn-primary">EDIT NEWS</a> |
+    <a asp-action="Index" class="btn btn-danger">NEWS LIST</a>
+</div>

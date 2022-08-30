@@ -1,0 +1,121 @@
+﻿@model APL.Models.Club
+
+<div class="container">
+    <h2 class="text-white">ADD NEW CLUB</h2>
+    <div class=" text-white">
+        <form method="post" asp-action="AddNewClub">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="clubName">CLUB NAME</label>
+                <span asp-validation-for="ClubName" class="text-danger bg-white"></span>
+                <input asp-for="ClubName" type="text" class="form-control" id="clubName" placeholder="Enter club name">
+            </div>
+            <div class="form-group">
+                <label for="clubNickname">CLUB NICKNAME</label>
+                <span asp-validation-for="ClubNickname" class="text-danger bg-white"></span>
+                <input asp-for="ClubNickname" type="text" class="form-control" id="clubNickname" placeholder="Enter club nickname">
+            </div>
+            <div class="form-group">
+                <label for="clubCrest">CLUB CREST</label>
+                <span asp-validation-for="ClubCrest" class="text-danger bg-white"></span>
+                <input asp-for="ClubCrest" type="text" class="form-control" id="clubCrest" placeholder="Enter a link to the image of the club crest">
+            </div>
+            @*- введення міста - вибір зі списка ------------------*@
+            @*<div class="form-group">
+                <label for="clubTown">CLUB TOWN</label>
+                <span asp-validation-for="ClubTown" class="text-danger bg-white"></span>
+                <input asp-for="ClubTown" type="text" class="form-control" id="clubTown" placeholder="Enter club town">
+            </div>*@
+            <div class="form-group">
+                <label for="clubTown">CLUB TOWN</label>
+                @*<span asp-validation-for="ClubTown" class="text-danger bg-white"></span>*@
+                <select asp-for="TownId" asp-items="@ViewBag.towns" class="form-control" id="clubTown">
+                    @* <option> поле для відображення інф за замовчуванням *@
+                    <option>SELECT CLUB TOWN</option>
+                </select>
+            </div>
+            @*------------------------------------------------------*@
+            @*- введення назви стадіона - вибір з дропдаунбокс ------------------*@
+            @*<div class="form-group">
+                <label for="clubHomeStadium">CLUB HOME STADIUM</label>
+                <span asp-validation-for="ClubHomeStadium" class="text-danger bg-white"></span>
+                <input asp-for="ClubHomeStadium" type="text" class="form-control" id="clubHomeStadium" placeholder="Enter club stadium">
+            </div>*@
+        <div class="form-group">
+            <label for="StadiumId">CLUB HOME STADIUM</label>
+            <select asp-for="StadiumId" asp-items="@ViewBag.stadiums" class="form-control" id="StadiumId">
+                <option>SELECT STADIUM</option>
+            </select>
+        </div>
+            @*------------------------------------------------------*@
+            @*- введення тренера - вибір зі списка ------------------*@
+            <div class="form-group">
+                <label for="ClubCoach">CLUB COACH</label>
+                @*<span asp-validation-for="ClubCoach" class="text-danger bg-white"></span>*@
+                @*<input asp-for="ClubHomeStadium" type="text" class="form-control" id="ClubCoach" placeholder="Enter club stadium">*@
+                <select asp-for="CoachId" asp-items="@ViewBag.clubcoach" class="form-control" id="ClubCoach">
+                    <option>SELECT CLUB COACH</option>
+                </select>
+            </div>
+            @*------------------------------------------------------*@
+            <div class="form-group">
+                <label for="clubWebsite">CLUB WEBSITE</label>
+                <span asp-validation-for="ClubWebsite" class="text-danger bg-white"></span>
+                <input asp-for="ClubWebsite" type="text" class="form-control" id="clubWebsite" placeholder="Enter a link to the club website">
+            </div>
+            <div class="form-group">
+                <label for="clubDescription">CLUB DESCRIPTION</label>
+                <span asp-validation-for="ClubDescription" class="text-danger bg-white"></span>
+                <textarea asp-for="ClubDescription" type="text" class="form-control" id="clubDescription" placeholder="Enter a few words of description"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">ADD CLUB</button>
+            <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">Clubs list</a>
+        </form>
+    </div>
+</div>
+@* підключення скрипта для валідації інф введеної в форму AddNewClub, EditClub ... *@
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+        $("#clubTown").on('change', function (event) {
+            console.log(event.target.value);
+            const town = event.target.value;
+            $.ajax({
+                url: "GetArenaTown",
+                type: "GET",
+                contentType: "application/json",
+                data: { "town": town },
+                success: function (response) {
+                    console.log(response)
+                    //return(response);
+                    $("#StadiumId").
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+        })
+</script>
+}
+
+@*<h3>ADD NEW COMMAND</h3>
+    <form style="width: 50%; margin: 0 auto;" method="post" action="../function.php" enctype="multipart/form-data">
+        <label for="name">COMMAND NAME</label>
+        <input name="name" id="name" type="text" class="form-control" autofocus="autofocus" required>
+
+        <label for="clubcrest">CLUB CREST</label>
+        <input name="clubcrest" id="clubcrest" type="file" class="form-control" required>
+
+        <label for="town">TOWN</label>
+        <input name="town" id="town" type="text" class="form-control" required>
+
+        <label for="homestadium">HOME STADIUM</label>
+        <input name="homestadium" id="homestadium" type="text" class="form-control" required>
+
+        <label for="maincoach">MAIN COACH</label>
+        <input name="maincoach" id="maincoach" type="text" class="form-control" required>
+
+        <button type="submit" name="btnAddNewCommand" id="btnAddNewCommand" class="btn btn-block btn-primary">ADD COMMAND</button>
+    </form>*@

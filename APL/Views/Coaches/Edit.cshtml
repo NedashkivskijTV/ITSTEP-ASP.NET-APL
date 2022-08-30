@@ -1,0 +1,73 @@
+﻿@model APL.Models.Coach
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-white">Edit Coach info</h1>
+
+@*<h4 class="text-white">Coach</h4>*@
+<h4 class="text-white">@Model.CoachFullName</h4>
+@if (!String.IsNullOrEmpty(@Model.CoachPhoto))
+{
+    <img src="@Html.DisplayFor(modelItem => Model.CoachPhoto)" alt="Coach photo" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+}
+else
+{
+    <img src="/img/coach.png" alt="Coach photo" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+}
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CoachId" />
+                <div class="form-group">
+                    <label asp-for="CoachSurname" class="control-label text-white"></label>
+                    <input asp-for="CoachSurname" class="form-control" />
+                    <span asp-validation-for="CoachSurname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoachName" class="control-label text-white"></label>
+                    <input asp-for="CoachName" class="form-control" />
+                    <span asp-validation-for="CoachName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoachPatronymic" class="control-label text-white"></label>
+                    <input asp-for="CoachPatronymic" class="form-control" />
+                    <span asp-validation-for="CoachPatronymic" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoachBirthday" class="control-label text-white"></label>
+                    @*<input type="datetime" asp-format="{0:dd.MM.yyyy}" asp-for="CoachBirthday" class="form-control" id="CoachBirthday" />*@
+                    <input type="date" asp-for="CoachBirthday" class="form-control" id="CoachBirthday" />
+                    <span asp-validation-for="CoachBirthday" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoachDescription" class="control-label text-white"></label>
+                    @*<input asp-for="CoachDescription" class="form-control" />*@
+                    <textarea asp-for="CoachDescription" type="text" cols="70" rows="7" class="form-control" id="CoachDescription"></textarea>
+                    <span asp-validation-for="CoachDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoachPhoto" class="control-label text-white"></label>
+                    <input asp-for="CoachPhoto" class="form-control" />
+                    <span asp-validation-for="CoachPhoto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="btn btn-danger">COACHES LIST</a>
+        <a class="btn btn-danger" asp-action="Details" asp-route-id="@Model.CoachId">COACH INFO</a>
+        <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">APL CLUBS</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

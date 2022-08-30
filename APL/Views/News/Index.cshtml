@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-danger">APL News</h1>
+
+<p>
+    <a class="btn btn-block btn-danger" asp-action="Create">Create News</a>
+</p>
+
+@if (ViewBag.newsN == 0) // перевірка наявності збережених новин у БД
+{
+    <p><h2 class="text-white">No NEWS yet in database</h2></p>
+}
+else { 
+    //int countItem = ViewBag.newsN;
+    for (int i = 0; i < ViewBag.newsN; i++)
+    {
+        <div class="card mb-3">
+            @if (!String.IsNullOrEmpty(@ViewBag.newsList[i].NewsImage))
+             {
+                 <img src="@ViewBag.newsList[i].NewsImage" class="card-img-top" alt="News image">
+             }
+             else
+             {
+                 <img src="/img/APL_2.png" class="card-img-top" alt="News image">
+             }
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.newsList[i].NewsTitle</h5>
+                <p class="card-text">@ViewBag.newsList[i].NewsText</p>
+                <p class="card-text"><small>@ViewBag.newsList[i].NewsAuthor</small></p>
+                <p class="card-text">
+                    <small class="text-muted">@ViewBag.newsList[i].NewsCreationDate</small>
+                <span class="float-right">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@ViewBag.newsList[i].NewsId">Edit</a> |
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@ViewBag.newsList[i].NewsId">Details</a> |
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@ViewBag.newsList[i].NewsId">Delete</a>
+                </span>
+                </p>
+            </div>
+        </div>
+    }
+
+    @*foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <img src="@Html.DisplayFor(modelItem => item.NewsImage)" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.NewsTitle)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.NewsText)</p>
+                    <p class="card-text"><small>@Html.DisplayFor(modelItem => item.NewsAuthor)</small></p>
+                    <p class="card-text"><small class="text-muted">@Html.DisplayFor(modelItem => item.NewsCreationDate)</small></p>
+                </div>
+            </div>
+
+        }*@
+}
+
+
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsAuthor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsCreationDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsAuthor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsCreationDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.NewsId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.NewsId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.NewsId">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

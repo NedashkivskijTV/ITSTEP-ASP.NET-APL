@@ -1,0 +1,36 @@
+﻿@*
+    https://getbootstrap.com/docs/5.2/components/card/#about
+*@
+@model APL.Models.Club
+
+<h2 class="text-danger">@Model.ClubName</h2>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@Model.ClubCrest" class="img-fluid rounded-start" alt="CLUB CREST">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.ClubName</h5>
+                <p class="card-text">@Model.ClubNickname</p>
+                @*<p class="card-text">@Model.ClubTown</p>*@
+                <p class="card-text">@ViewBag.clubtown</p>
+                @*<p class="card-text">@Model.ClubHomeStadium</p>*@
+                <p class="card-text">@Model.ClubDescription</p>
+                @*- відображення тренера та посилання на його особисту сторінку ---------------*@
+                @*<p class="card-text">@ViewBag.clubcoach</p>*@
+                <p class="card-text">
+                    <a asp-action="Details" asp-controller="Coaches" asp-route-Id="@Model.CoachId" class="text-danger">@ViewBag.clubcoach</a>
+                </p>
+                @*-----------------------------------------------------------------------------*@
+                <p class="card-text"><small class="text-muted"><a href="@Model.ClubWebsite">@Model.ClubWebsite</a></small></p>
+                <hr>
+                <a class="btn btn-sm btn-outline-secondary" asp-route-Id="@Model.Id" asp-action="EditClub" asp-controller="Clubs">EDIT</a>
+                <a class="btn btn-sm btn-outline-danger" asp-route-Id="@Model.Id" asp-action="DeleteClub" asp-controller="Clubs">DEL</a>
+                <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">APL CLUBS</a>
+                <a asp-action="Index" asp-controller="" class="btn btn-info">PLAYERS</a>
+            </div>
+        </div>
+    </div>
+</div>
