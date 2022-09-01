@@ -23,7 +23,11 @@ namespace APL.Controllers
         public async Task<IActionResult> Index()
         {
             var aplDbContext = _context.Players.Include(p => p.Club);
-            return View(await aplDbContext.ToListAsync());
+            return View(await aplDbContext
+                .OrderBy(p => p.Club.ClubName)
+                .ThenBy(pp => pp.PlayerPosition)
+                .ThenBy(ppp => ppp.PlayerNumber)
+                .ToListAsync());
         }
 
         // GET: Players/Details/5
@@ -66,7 +70,7 @@ namespace APL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClubId"] = new SelectList(_context.clubs, "Id", "ClubCrest", player.ClubId);
+            ViewBag.clubs = new SelectList(_context.clubs, "Id", "ClubName", player.ClubId);
             return View(player);
         }
 
@@ -83,7 +87,7 @@ namespace APL.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClubId"] = new SelectList(_context.clubs, "Id", "ClubCrest", player.ClubId);
+            ViewData["ClubId"] = new SelectList(_context.clubs, "Id", "ClubName", player.ClubId);
             return View(player);
         }
 
@@ -119,7 +123,7 @@ namespace APL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClubId"] = new SelectList(_context.clubs, "Id", "ClubCrest", player.ClubId);
+            ViewData["ClubId"] = new SelectList(_context.clubs, "Id", "ClubName", player.ClubId);
             return View(player);
         }
 

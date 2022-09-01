@@ -5,48 +5,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-danger">List of Cities</h1>
+<h1 class="text-danger">List of Towns</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-block btn-danger">Add City</a>
 </p>
-<table class="table">
-    <thead>
-        <tr class="text-danger bg-light align-middle text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.TownName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TownDescription)
-            </th>
-            <th>
-                Possible Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-    string townDescShort = item.TownDescription.Length > 30 ? item.TownDescription.Substring(0, 30) + " ..." : item.TownDescription;
-    //string townDescShort = item.TownDescription;
-    //if(townDescShort.Length > 30)
-    //    {
-    //        townDescShort = item.TownDescription.Substring(0,30) + " ...";
-    //    }
-        <tr class="text-danger bg-white">
-            <td class="align-middle text-center">
-                @Html.DisplayFor(modelItem => item.TownName)
-            </td>
-            @*<td class="align-middle text-center" style="max-width: 50px;">*@
-            <td class="align-middle text-center">
-                @*@Html.DisplayFor(modelItem => item.TownDescription)*@
-                @townDescShort
-            </td>
-            <td class="align-middle text-center">
-                <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.TownId">Edit</a> |
-                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.TownId">Details</a> |
-                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.TownId">Delete</a>
-            </td>
-        </tr>
+@if (Model.Count() == 0) // перевірка наявності збережених клубів у БД
+{
+    <p><h2 class="text-white">No Towns yet in database</h2></p>
 }
-    </tbody>
-</table>
+else
+{
+    <table class="table">
+        <thead>
+            <tr class="text-danger bg-light align-middle text-center">
+                <th>
+                    @Html.DisplayNameFor(model => model.TownName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TownDescription)
+                </th>
+                <th>
+                    Possible Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string townDescShort = item.TownDescription.Length > 30 ? item.TownDescription.Substring(0, 30) + " ..." : item.TownDescription;
+                //string townDescShort = item.TownDescription;
+                //if(townDescShort.Length > 30)
+                //    {
+                //        townDescShort = item.TownDescription.Substring(0,30) + " ...";
+                //    }
+                <tr class="text-danger bg-white">
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.TownName)
+                    </td>
+                    @*<td class="align-middle text-center" style="max-width: 50px;">*@
+                    <td class="align-middle text-center">
+                        @*@Html.DisplayFor(modelItem => item.TownDescription)*@
+                        @townDescShort
+                    </td>
+                    <td class="align-middle text-center">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.TownId">Edit</a> |
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.TownId">Details</a> |
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.TownId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

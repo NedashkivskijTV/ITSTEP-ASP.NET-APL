@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace APL.Controllers
@@ -90,8 +91,8 @@ namespace APL.Controllers
         //        CoachName = "Мике́ль",
         //        CoachPatronymic ="Аматриаи́н",
         //        CoachBirthday = new DateTime(26-03-1982),
+        //        CoachDescription = "Мике́ль Арте́та Аматриаи́н (исп. Mikel Arteta Amatriaín; 26 марта 1982, Сан-Себастьян) — испанский футболист, полузащитник, тренер, по национальности баск. Главный тренер клуба «Арсенал» (Лондон).Начинал свою карьеру в «Барселоне Б», но не смог пройти в первую команду и был отдан в аренду французскому клубу «Пари Сен-Жермен». В следующем сезоне его подписал шотландский «Рейнджерс»",
         //        CoachPhoto = "https://upload.wikimedia.org/wikipedia/commons/1/14/Areta_Interview_2020.png",
-        //        CoachDescription = "Мике́ль Арте́та Аматриаи́н (исп. Mikel Arteta Amatriaín; 26 марта 1982, Сан-Себастьян) — испанский футболист, полузащитник, тренер, по национальности баск. Главный тренер клуба «Арсенал» (Лондон).Начинал свою карьеру в «Барселоне Б», но не смог пройти в первую команду и был отдан в аренду французскому клубу «Пари Сен-Жермен». В следующем сезоне его подписал шотландский «Рейнджерс»"
         //    },
         //    new Coach
         //    {
@@ -147,10 +148,15 @@ namespace APL.Controllers
             //return View(_db.clubs); // повернення БД
             //return View(_db.clubs.Include(c => c.Coach)); // створено для відображення інф про тренера в таблиці клубів
 
-            List<Coach> coaches = new List<Coach>(_db.Coach.ToList());
-            List<Town> towns = new List<Town>(_db.Towns.ToList());
+            //List<Coach> coaches = new List<Coach>(_db.Coach.ToList());
+            //List<Town> towns = new List<Town>(_db.Towns.ToList());
+            //List<Stadium> stadiums = new List<Stadium>(_db.Stadiums.ToList());
 
-            return View(_db.clubs); // створено для відображення інф про тренера в таблиці клубів
+            return View(_db.clubs
+                .Include(c => c.Coach)
+                .Include(c => c.Stadium)
+                .ThenInclude(s => s.Town)
+                ); // створено для відображення інф про тренера, місто, стадіон в таблиці клубів
         }
 
         //методи для додавання клуба =====================================================================================================================================================================
@@ -182,6 +188,7 @@ namespace APL.Controllers
         {
             ViewBag.clubcoach = new SelectList(_db.Coach.ToList(), "CoachId", "CoachFullName");  // створено для редагування тренера, отриманого зі списку
             ViewBag.towns = new SelectList(_db.Towns.ToList(), "TownId", "TownName");  // створено для редагування міста, отриманого зі списку
+            ViewBag.stadiums = new SelectList(_db.Stadiums.ToList(), "StadiumId", "StadiumName"); // створено для додавання назви стадіона зі списку
             return View(_db.clubs.Find(id));
         }
 
@@ -199,23 +206,17 @@ namespace APL.Controllers
         // ShowSinglePhone - методи відображення одного телефона ==============================================================================================================================================================================================
         public IActionResult SingleClub(int Id)
         {
-            //ViewBag.category = _db.categories.Find(_db.phones.Find(Id).CategoryId).CategoryName;  // створено для відображенні категорії
-            //ViewBag.brend = _db.brends.Find(_db.phones.Find(Id).BrendId).BrendName;  // створено для відображенні бренда
-            //ViewBag.country = _db.country.Find(_db.phones.Find(Id).CountryId).CountryName;  // створено для відображенні країни-виробника
-
             ViewBag.clubcoach = _db.Coach.Find(_db.clubs.Find(Id).CoachId).CoachFullName;  // створено для відображення тренера
             ViewBag.clubtown = _db.Towns.Find(_db.clubs.Find(Id).TownId).TownName;  // створено для відображення міста
+            ViewBag.stadium = _db.Stadiums.Find(_db.clubs.Find(Id).StadiumId).StadiumName;  // створено для відображення назви стадіона
             return View(_db.clubs.Find(Id));
         }
         // видалення клубу =========================================================================================================================================================================================================
         public IActionResult DeleteClub(int Id)
         {
-            //ViewBag.category = _db.categories.Find(_db.phones.Find(Id).CategoryId).CategoryName;  // створено для відображенні категорії
-            //ViewBag.brend = _db.brends.Find(_db.phones.Find(Id).BrendId).BrendName;  // створено для відображенні бренда
-            //ViewBag.country = _db.country.Find(_db.phones.Find(Id).CountryId).CountryName;  // створено для відображенні країни-виробника
-
             ViewBag.clubcoach = _db.Coach.Find(_db.clubs.Find(Id).CoachId).CoachFullName;  // створено для відображення тренера
             ViewBag.clubtown = _db.Towns.Find(_db.clubs.Find(Id).TownId).TownName;  // створено для відображення міста
+            ViewBag.stadium = _db.Stadiums.Find(_db.clubs.Find(Id).StadiumId).StadiumName;  // створено для відображення назви стадіона
             return View(_db.clubs.Find(Id));
         }
 
@@ -232,13 +233,13 @@ namespace APL.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetArenaTown(string town)
+        public JsonResult GetArenaTown(string id)
         {
-            // точка дебага !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (!String.IsNullOrEmpty(town))
+            // дебаг !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (!String.IsNullOrEmpty(id))
             {
-                //int townInt = Int32.Parse(town);
-                var arenas = _db.Stadiums.Where(s => s.Town.TownId == Int32.Parse(town)).ToList();
+                var arenas = _db.Stadiums.Where(s => s.Town.TownId == Int32.Parse(id)).ToList();
+                //var arenas = new SelectList(_db.Stadiums.Where(s => s.Town.TownId == Int32.Parse(town)).ToList(), "StadiumId", "StadiumName");
                 return Json(arenas);
             }
             return Json("Error");

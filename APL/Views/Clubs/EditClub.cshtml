@@ -33,11 +33,12 @@
             <select asp-for="TownId" asp-items="@ViewBag.towns" class="form-control" id="clubTown"></select>
         </div>
             @*------------------------------------------------------*@
-            @*<div class="form-group">
+            @*- введення назви стадіона - вибір з дропдаунбокс ------------------*@
+            <div class="form-group">
                 <label for="clubHomeStadium">CLUB HOME STADIUM</label>
-                <input asp-for="ClubHomeStadium" type="text" class="form-control" id="clubHomeStadium">
-                <span asp-validation-for="ClubHomeStadium" class="text-danger"></span>
-            </div>*@
+                <select asp-for="StadiumId" asp-items="@ViewBag.stadiums" class="form-control" id="clubHomeStadium"></select>
+            </div>
+            @*------------------------------------------------------*@
             @*- введення тренера - вибір зі списка ------------------*@
             <div class="form-group">
                 <label for="ClubCoach">CLUB COACH</label>

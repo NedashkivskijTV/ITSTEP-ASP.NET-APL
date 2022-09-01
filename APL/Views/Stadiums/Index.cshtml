@@ -10,41 +10,49 @@
 <p>
     <a asp-action="Create" class="btn btn-block btn-danger">Add stadium</a>
 </p>
-<table class="table">
-    <thead>
-        <tr class="text-danger bg-light align-middle text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.StadiumName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StadiumDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Town)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-    string stadiumDescShort = item.StadiumDescription.Length > 30 ? item.StadiumDescription.Substring(0, 30) + " ..." : item.StadiumDescription;
-        <tr class="text-danger bg-white">
-            <td class="align-middle text-center">
-                @Html.DisplayFor(modelItem => item.StadiumName)
-            </td>
-            <td class="align-middle text-center">
-                @*@Html.DisplayFor(modelItem => item.StadiumDescription)*@
-                @stadiumDescShort
-            </td>
-            <td class="align-middle text-center">
-                @Html.DisplayFor(modelItem => item.Town.TownName)
-            </td>
-            <td class="align-middle text-center">
-                <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.StadiumId">Edit</a> |
-                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.StadiumId">Details</a> |
-                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.StadiumId">Delete</a>
-            </td>
-        </tr>
+@if (Model.Count() == 0) // перевірка наявності збережених клубів у БД
+{
+    <p><h2 class="text-white">No Stadiums yet in database</h2></p>
 }
-    </tbody>
-</table>
+else
+{
+    <table class="table">
+        <thead>
+            <tr class="text-danger bg-light align-middle text-center">
+                <th>
+                    @Html.DisplayNameFor(model => model.StadiumName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StadiumDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Town)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string stadiumDescShort = item.StadiumDescription.Length > 30 ? item.StadiumDescription.Substring(0, 30) + " ..." : item.StadiumDescription;
+                <tr class="text-danger bg-white">
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.StadiumName)
+                    </td>
+                    <td class="align-middle text-center">
+                        @*@Html.DisplayFor(modelItem => item.StadiumDescription)*@
+                        @stadiumDescShort
+                    </td>
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.Town.TownName)
+                    </td>
+                    <td class="align-middle text-center">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.StadiumId">Edit</a> |
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.StadiumId">Details</a> |
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.StadiumId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

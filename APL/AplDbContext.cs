@@ -15,6 +15,7 @@ namespace APL
         public DbSet<News> News { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Match> Matches { get; set; }
 
 
         public AplDbContext(DbContextOptions<AplDbContext> options) : base(options)

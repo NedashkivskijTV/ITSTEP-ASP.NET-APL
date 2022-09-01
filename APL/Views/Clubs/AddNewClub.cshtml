@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="clubCrest">CLUB CREST</label>
                 <span asp-validation-for="ClubCrest" class="text-danger bg-white"></span>
-                <input asp-for="ClubCrest" type="text" class="form-control" id="clubCrest" placeholder="Enter a link to the image of the club crest">
+                <input asp-for="ClubCrest" class="form-control" id="clubCrest" placeholder="Enter a link to the image of the club crest">
             </div>
             @*- введення міста - вибір зі списка ------------------*@
             @*<div class="form-group">
@@ -35,7 +35,7 @@
                 </select>
             </div>
             @*------------------------------------------------------*@
-            @*- введення назви стадіона - вибір з дропдаунбокс ------------------*@
+            @*- введення назви стадіона - вибір з дропдаунбокс -----*@
             @*<div class="form-group">
                 <label for="clubHomeStadium">CLUB HOME STADIUM</label>
                 <span asp-validation-for="ClubHomeStadium" class="text-danger bg-white"></span>
@@ -43,11 +43,12 @@
             </div>*@
         <div class="form-group">
             <label for="StadiumId">CLUB HOME STADIUM</label>
-            <select asp-for="StadiumId" asp-items="@ViewBag.stadiums" class="form-control" id="StadiumId">
+            <span asp-validation-for="StadiumId" class="text-danger bg-white"></span>
+            <select asp-for="StadiumId" class="form-control" id="StadiumId">
                 <option>SELECT STADIUM</option>
             </select>
         </div>
-            @*------------------------------------------------------*@
+            @*-------------------------------------------------------*@
             @*- введення тренера - вибір зі списка ------------------*@
             <div class="form-group">
                 <label for="ClubCoach">CLUB COACH</label>
@@ -79,43 +80,6 @@
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 <script>
-        $("#clubTown").on('change', function (event) {
-            console.log(event.target.value);
-            const town = event.target.value;
-            $.ajax({
-                url: "GetArenaTown",
-                type: "GET",
-                contentType: "application/json",
-                data: { "town": town },
-                success: function (response) {
-                    console.log(response)
-                    //return(response);
-                    $("#StadiumId").
-                },
-                error: function (error) {
-                    console.log(error)
-                }
-            })
-        })
+    $("#clubTown").on('change', function (event) { AjaxDropDown(event, "GetArenaTown", "StadiumId") });
 </script>
 }
-
-@*<h3>ADD NEW COMMAND</h3>
-    <form style="width: 50%; margin: 0 auto;" method="post" action="../function.php" enctype="multipart/form-data">
-        <label for="name">COMMAND NAME</label>
-        <input name="name" id="name" type="text" class="form-control" autofocus="autofocus" required>
-
-        <label for="clubcrest">CLUB CREST</label>
-        <input name="clubcrest" id="clubcrest" type="file" class="form-control" required>
-
-        <label for="town">TOWN</label>
-        <input name="town" id="town" type="text" class="form-control" required>
-
-        <label for="homestadium">HOME STADIUM</label>
-        <input name="homestadium" id="homestadium" type="text" class="form-control" required>
-
-        <label for="maincoach">MAIN COACH</label>
-        <input name="maincoach" id="maincoach" type="text" class="form-control" required>
-
-        <button type="submit" name="btnAddNewCommand" id="btnAddNewCommand" class="btn btn-block btn-primary">ADD COMMAND</button>
-    </form>*@

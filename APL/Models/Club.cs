@@ -18,6 +18,7 @@ namespace APL.Models
         public string ClubNickname { get; set; }
 
         [Required(ErrorMessage = "- Field is required")]
+        [DataType(DataType.ImageUrl)]
         public string ClubCrest { get; set; }
 
         //[Required(ErrorMessage = "- Field is required")] // закоментовано при додаванні моделі Town
@@ -28,7 +29,7 @@ namespace APL.Models
 
         public string ClubWebsite { get; set; }
 
-        [StringLength(700, ErrorMessage = "CLUB description cannot be longer than 700 characters")] // максимальна довжина рядка
+        [StringLength(1000, ErrorMessage = "CLUB description cannot be longer than 1000 characters")] // максимальна довжина рядка
         public string ClubDescription { get; set; }
 
         public int CoachId { get; set; }

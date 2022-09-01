@@ -26,6 +26,7 @@ namespace APL.Models
         [Display(Name = "Description")]
         public string PlayerDescription { get; set; }
 
+        [Display(Name = "APL Club")]
         public int ClubId { get; set; }
         public Club Club { get; set; }
     }

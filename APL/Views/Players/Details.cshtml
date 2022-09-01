@@ -5,51 +5,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1 class="text-white">Player Details</h1>
 
 <div>
-    <h4>Player</h4>
+    @*<h4>Player</h4>*@
+    <h4 class="text-white">@Model.PlayerName</h4>
+    <p>
+        @if (!String.IsNullOrEmpty(@Model.PlayerPhoto))
+        {
+            <img src="@Html.DisplayFor(modelItem => Model.PlayerPhoto)" alt="Coach photo" style="width: 100%; max-width: 250px; display: block;" data-holder-rendered="true" />
+        }
+        else
+        {
+            <img src="/img/APL_2.png" alt="Coach photo" style="width: 100%; max-width: 250px; display: block;" data-holder-rendered="true" />
+        }
+    </p>
+
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="row bg-white">
+        @*<dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PlayerName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PlayerName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PlayerPhoto)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PlayerPhoto)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd>*@
+        <dt class="col-sm-2 text-danger">
             @Html.DisplayNameFor(model => model.PlayerNumber)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PlayerNumber)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 text-danger">
             @Html.DisplayNameFor(model => model.PlayerPosition)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PlayerPosition)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 text-danger">
             @Html.DisplayNameFor(model => model.PlayerDescription)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PlayerDescription)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 text-danger">
             @Html.DisplayNameFor(model => model.Club)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Club.ClubCrest)
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.Club.ClubCrest)*@
+            <span class="text-danger">
+                <h5>@Html.DisplayFor(model => model.Club.ClubName)</h5>
+            </span>
+            <span class="float-md-none">
+                @if (!String.IsNullOrEmpty(@Model.Club.ClubCrest))
+                {
+                    <img src="@Html.DisplayFor(model => model.Club.ClubCrest)" alt="Club crest" style="width: 100%; max-width: 70px; display: block;" data-holder-rendered="true" />
+                }
+                else
+                {
+                    <img src="/img/APL_2.png" alt="Club crest" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                }
+            </span>
+
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.PlayerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.PlayerId" class="btn btn-primary">EDIT INFO</a> |
+    <a asp-action="Index" class="btn btn-danger">PLAYERS LIST</a>
 </div>

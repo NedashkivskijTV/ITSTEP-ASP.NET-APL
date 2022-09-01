@@ -451,3 +451,8 @@ D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Stadiums\D
 D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Stadiums\Details.cshtml.g.cs
 D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Stadiums\Edit.cshtml.g.cs
 D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Stadiums\Index.cshtml.g.cs
+D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Create.cshtml.g.cs
+D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Delete.cshtml.g.cs
+D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Details.cshtml.g.cs
+D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Edit.cshtml.g.cs
+D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Index.cshtml.g.cs
