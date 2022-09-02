@@ -5,6 +5,7 @@
 
 function AjaxDropDown(event, url, elementId) {
     const id = event.target.value;
+    //console.log(id);
     $.ajax({
         url: url,
         type: "GET",

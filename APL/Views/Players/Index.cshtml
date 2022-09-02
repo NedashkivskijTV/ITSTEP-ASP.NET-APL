@@ -41,8 +41,20 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
+            @{
+                string club = "";
+                foreach (var item in Model)
+                {
+                    if(item.Club.ClubName != club)
+                    {
+                        <tr class="text-white bg-danger align-middle text-center">
+                            <td colspan="6">
+                                @Html.DisplayFor(modelItem => item.Club.ClubName)
+                            </td>
+                        </tr>
+                        club = new String(item.Club.ClubName);
+                        
+                    }
                 <tr class="text-danger bg-white">
                     <td class="align-middle text-center">
                         @Html.DisplayFor(modelItem => item.PlayerName)
@@ -85,6 +97,7 @@ else
                         <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.PlayerId">Delete</a>
                     </td>
                 </tr>
+            }
             }
         </tbody>
     </table>

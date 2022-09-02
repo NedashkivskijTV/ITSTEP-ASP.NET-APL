@@ -8,35 +8,38 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label for="clubName">CLUB NAME</label>
+                <span asp-validation-for="ClubName" class="text-danger bg-warning"></span>
                 <input asp-for="ClubName" type="text" class="form-control" id="clubName">
-                <span asp-validation-for="ClubName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="clubNickname">CLUB NICKNAME</label>
+                <span asp-validation-for="ClubNickname" class="text-danger bg-warning"></span>
                 <input asp-for="ClubNickname" type="text" class="form-control" id="clubNickname">
-                <span asp-validation-for="ClubNickname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="clubCrest">CLUB CREST</label>
+                <span asp-validation-for="ClubCrest" class="text-danger bg-warning"></span>
                 <input asp-for="ClubCrest" type="text" class="form-control" id="clubCrest">
-                <span asp-validation-for="ClubCrest" class="text-danger"></span>
             </div>
             @*- введення назви міста - вибір з дропдаунбокс ------------------*@
             @*<div class="form-group">
+                    <label for="clubTown">CLUB TOWN</label>
+                    <input asp-for="ClubTown" type="text" class="form-control" id="clubTown">
+                    <span asp-validation-for="ClubTown" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
                 <label for="clubTown">CLUB TOWN</label>
-                <input asp-for="ClubTown" type="text" class="form-control" id="clubTown">
-                <span asp-validation-for="ClubTown" class="text-danger"></span>
-            </div>*@
-        <div class="form-group">
-            <label for="clubTown">CLUB TOWN</label>
-            @*<span asp-validation-for="ClubTown" class="text-danger"></span>*@
-            <select asp-for="TownId" asp-items="@ViewBag.towns" class="form-control" id="clubTown"></select>
-        </div>
+                @*<span asp-validation-for="ClubTown" class="text-danger"></span>*@
+                <select asp-for="TownId" asp-items="@ViewBag.towns" class="form-control" id="clubTown">
+                </select>
+            </div>
             @*------------------------------------------------------*@
             @*- введення назви стадіона - вибір з дропдаунбокс ------------------*@
             <div class="form-group">
-                <label for="clubHomeStadium">CLUB HOME STADIUM</label>
-                <select asp-for="StadiumId" asp-items="@ViewBag.stadiums" class="form-control" id="clubHomeStadium"></select>
+                <label for="StadiumId">CLUB HOME STADIUM</label>
+                <select asp-for="StadiumId"  class="form-control" id="StadiumId">
+                    @*<option>SELECT STADIUM</option>*@
+                </select>
             </div>
             @*------------------------------------------------------*@
             @*- введення тренера - вибір зі списка ------------------*@
@@ -47,17 +50,17 @@
             @*------------------------------------------------------*@
             <div class="form-group">
                 <label for="clubWebsite">CLUB WEBSITE</label>
+                <span asp-validation-for="ClubWebsite" class="text-danger bg-warning"></span>
                 <input asp-for="ClubWebsite" type="text" class="form-control" id="clubWebsite">
-                <span asp-validation-for="ClubWebsite" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="clubDescription">CLUB DESCRIPTION</label>
+                <span asp-validation-for="ClubDescription" class="text-danger bg-warning"></span>
                 <textarea asp-for="ClubDescription" type="text" cols="70" rows="7" class="form-control" id="clubDescription"></textarea>
-                <span asp-validation-for="ClubDescription" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">EDIT CLUB</button>
-            <a asp-action="SingleClub" asp-controller="Clubs" asp-route-Id="@Model.Id" class="btn btn-info">BACK CLUB INFO</a>
+            @*<a asp-action="SingleClub" asp-controller="Clubs" asp-route-Id="@Model.Id" class="btn btn-info">BACK CLUB INFO</a>*@
             <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">APL CLUBS</a>
         </form>
     </div>
@@ -65,4 +68,16 @@
 @* підключення скрипта для валідації інф введеної в форму AddPhone, EditPhone ... *@
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $("#clubTown").trigger('change');
+        });
+
+        $("#clubTown").on('change', function (event) {
+            console.log(event.target.value)
+            event.preventDefault();
+            AjaxDropDown(event, "/Clubs/GetArenaTown", "StadiumId")
+        });
+    </script>
 }

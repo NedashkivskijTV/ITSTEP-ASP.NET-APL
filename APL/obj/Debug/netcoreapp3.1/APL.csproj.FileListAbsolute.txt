@@ -456,3 +456,4 @@ D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\De
 D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Details.cshtml.g.cs
 D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Edit.cshtml.g.cs
 D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\Index.cshtml.g.cs
+D:\ITSTEP\ASP\Examination\APL\APL\obj\Debug\netcoreapp3.1\Razor\Views\Matches\ClubStatistics.cshtml.g.cs

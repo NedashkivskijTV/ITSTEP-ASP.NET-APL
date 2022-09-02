@@ -15,34 +15,34 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="CoachSurname" class="control-label"></label>
+                <span asp-validation-for="CoachSurname" class="text-danger bg-warning"></span>
                 <input asp-for="CoachSurname" class="form-control" placeholder="Enter coach surname"/>
-                <span asp-validation-for="CoachSurname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CoachName" class="control-label"></label>
+                <span asp-validation-for="CoachName" class="text-danger bg-warning"></span>
                 <input asp-for="CoachName" class="form-control" placeholder="Enter coach name"/>
-                <span asp-validation-for="CoachName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CoachPatronymic" class="control-label"></label>
+                <span asp-validation-for="CoachPatronymic" class="text-danger bg-warning"></span>
                 <input asp-for="CoachPatronymic" class="form-control" placeholder="Enter coach patronymic"/>
-                <span asp-validation-for="CoachPatronymic" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CoachBirthday" class="control-label"></label>
+                <span asp-validation-for="CoachBirthday" class="text-danger bg-warning"></span>
                 <input type="date" asp-for="CoachBirthday" value="@Html.EditorFor(model => model.CoachBirthday)" class="form-control" />
-                <span asp-validation-for="CoachBirthday" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CoachDescription" class="control-label"></label>
                 @*<input asp-for="CoachDescription" class="form-control" />*@
-                <span asp-validation-for="CoachDescription" class="text-danger"></span>
+                <span asp-validation-for="CoachDescription" class="text-danger bg-warning"></span>
                 <textarea asp-for="CoachDescription" class="form-control" id="coachDescription" rows="10" placeholder="Enter a few words of description"></textarea>
             </div>
             <div class="form-group">
                 <label asp-for="CoachPhoto" class="control-label"></label>
+                <span asp-validation-for="CoachPhoto" class="text-danger bg-warning"></span>
                 <input asp-for="CoachPhoto" class="form-control" placeholder="Enter a link to the coach's photo"/>
-                <span asp-validation-for="CoachPhoto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="ADD COACH" class="btn btn-primary" />

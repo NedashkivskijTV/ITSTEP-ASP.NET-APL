@@ -25,35 +25,35 @@ else
                 <input type="hidden" asp-for="CoachId" />
                 <div class="form-group">
                     <label asp-for="CoachSurname" class="control-label text-white"></label>
+                    <span asp-validation-for="CoachSurname" class="text-danger bg-warning"></span>
                     <input asp-for="CoachSurname" class="form-control" />
-                    <span asp-validation-for="CoachSurname" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CoachName" class="control-label text-white"></label>
+                    <span asp-validation-for="CoachName" class="text-danger bg-warning"></span>
                     <input asp-for="CoachName" class="form-control" />
-                    <span asp-validation-for="CoachName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CoachPatronymic" class="control-label text-white"></label>
+                    <span asp-validation-for="CoachPatronymic" class="text-danger bg-warning"></span>
                     <input asp-for="CoachPatronymic" class="form-control" />
-                    <span asp-validation-for="CoachPatronymic" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CoachBirthday" class="control-label text-white"></label>
                     @*<input type="datetime" asp-format="{0:dd.MM.yyyy}" asp-for="CoachBirthday" class="form-control" id="CoachBirthday" />*@
+                    <span asp-validation-for="CoachBirthday" class="text-danger bg-warning"></span>
                     <input type="date" asp-for="CoachBirthday" class="form-control" id="CoachBirthday" />
-                    <span asp-validation-for="CoachBirthday" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CoachDescription" class="control-label text-white"></label>
                     @*<input asp-for="CoachDescription" class="form-control" />*@
+                    <span asp-validation-for="CoachDescription" class="text-danger bg-warning"></span>
                     <textarea asp-for="CoachDescription" type="text" cols="70" rows="7" class="form-control" id="CoachDescription"></textarea>
-                    <span asp-validation-for="CoachDescription" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CoachPhoto" class="control-label text-white"></label>
+                    <span asp-validation-for="CoachPhoto" class="text-danger bg-warning"></span>
                     <input asp-for="CoachPhoto" class="form-control" />
-                    <span asp-validation-for="CoachPhoto" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="SAVE" class="btn btn-primary" />

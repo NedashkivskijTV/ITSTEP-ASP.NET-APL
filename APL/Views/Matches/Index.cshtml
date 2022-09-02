@@ -5,42 +5,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+@*<h1 class="text-danger text-center">APL standings</h1>*@
+<h1 class="text-danger">APL standings</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-block btn-danger">Add Match</a>
 </p>
+<span style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px;">
+    <a style="width: 25%; margin-top: 5px;" href='gamecalendar.php?filtr=1' class='btn btn-danger btn-block'>OLL GAMES</a>
+    <a style="width: 25%;" href='gamecalendar.php?filtr=2' class='btn btn-danger btn-block'>CURRENT YEAR</a>
+    <a style="width: 25%;" href='gamecalendar.php?filtr=3' class='btn btn-danger btn-block'>CURRENT MONTH</a>
+</span>
+
 @if (Model.Count() == 0) // перевірка наявності збережених клубів у БД
 {
     <p><h2 class="text-white">No Matches yet in database</h2></p>
 }
 else
 {
-
     <table class="table">
         <thead>
-            <tr>
+            <tr class="text-danger bg-light align-middle text-center">
                 <th>
                     @Html.DisplayNameFor(model => model.MatchDate)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.HomeClubId)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AwayClubId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Town)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Stadium)
-                </th>
+                <th></th>
                 <th>
                     @Html.DisplayNameFor(model => model.MatchResult)
                 </th>
+                <th></th>
                 <th>
-                    @Html.DisplayNameFor(model => model.MatchDescription)
+                    @Html.DisplayNameFor(model => model.AwayClubId)
                 </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Town)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Stadium)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.MatchDescription)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.MatchIsOver)
                 </th>
@@ -50,35 +58,92 @@ else
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatchDate)
+                string homeClubName = "";
+                string awayClubName = "";
+                string homeClubCrest = "";
+                string awayClubCrest = "";
+                foreach (var club in ViewBag.clubs)
+                {
+                    if (club.Id == item.HomeClubId)
+                    {
+                        homeClubName = club.ClubName;
+                        homeClubCrest = club.ClubCrest;
+                    }
+                    if (club.Id == item.AwayClubId)
+                    {
+                        awayClubName = club.ClubName;
+                        awayClubCrest = club.ClubCrest;
+                    }
+                }
+                <tr class="text-dark bg-white">
+                    <td class="align-middle text-center">
+                        <a asp-action="Details" asp-route-id="@item.MatchId">
+                            @*@Html.DisplayFor(modelItem => item.MatchDate)*@
+                            @item.MatchDate.ToShortDateString()
+                            @item.MatchDate.ToShortTimeString()
+
+                        </a>
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HomeClubId)
+                    <td class="align-middle text-center text-danger">
+                        @*@Html.DisplayFor(modelItem => item.HomeClubId)*@
+                        @homeClubName
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AwayClubId)
+                    <td class="align-middle text-center">
+                        @if (!String.IsNullOrEmpty(@homeClubCrest))
+                        {
+                            <img src="@homeClubCrest" alt="Club crest" style="width: 100%; max-width: 70px; min-width: 40px; display: block;" data-holder-rendered="true" />
+                        }
+                        else
+                        {
+                            <img src="/img/APL_2.png" alt="Club crest" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                        }
                     </td>
-                    <td>
+                    <td class="align-middle text-center text-danger">
+                        <h4>@Html.DisplayFor(modelItem => item.MatchResult)</h4>
+                    </td>
+                    <td class="align-middle text-center">
+                        @if (!String.IsNullOrEmpty(@awayClubCrest))
+                        {
+                            <img src="@awayClubCrest" alt="Club crest" style="width: 100%; max-width: 70px; min-width: 40px; display: block;" data-holder-rendered="true" />
+                        }
+                        else
+                        {
+                            <img src="/img/APL_2.png" alt="Club crest" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                        }
+                    </td>
+                    <td class="align-middle text-center text-danger">
+                        @*@Html.DisplayFor(modelItem => item.AwayClubId)*@
+                        @awayClubName
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Town.TownName)
+                        </td>*@
+                    <td class="align-middle text-center">
                         @Html.DisplayFor(modelItem => item.Town.TownName)
-                    </td>
-                    <td>
+                        -
                         @Html.DisplayFor(modelItem => item.Stadium.StadiumName)
                     </td>
+                    @*<td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.MatchDescription)
+                        </td>*@
+                <td class="align-middle text-center">
+                    @*@Html.DisplayFor(modelItem => item.MatchIsOver)*@
+                    @{
+                        if (item.MatchIsOver)
+                        {
+                            <p>Match Over</p>
+                        }
+                        @*else
+                        {
+                            <p class="text-dark">not played</p>
+                        }*@
+                    }
+                </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.MatchResult)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatchDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatchIsOver)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.MatchId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.MatchId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.MatchId">Delete</a>
+                        @*<a asp-action="Edit" asp-route-id="@item.MatchId">Edit</a> |*@
+                        @*<a asp-action="Details" asp-route-id="@item.MatchId">Details</a>*@
+                        @*|*@
+                        @*<a asp-action="Delete" asp-route-id="@item.MatchId">Delete</a>*@
                     </td>
                 </tr>
             }

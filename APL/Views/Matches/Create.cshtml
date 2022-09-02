@@ -5,50 +5,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1 class="text-danger">Create match</h1>
 
-<h4>Match</h4>
+@*<h4>Match</h4>*@
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5 text-white">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MatchDate" class="control-label"></label>
+                <span asp-validation-for="MatchDate" class="text-danger bg-warning"></span>
                 <input asp-for="MatchDate" class="form-control" />
-                <span asp-validation-for="MatchDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @*+ введення клубу, що грає вдома - вибір з dropdown ++++++++++++++++++*@
                 <label asp-for="HomeClubId" class="control-label"></label>
-                <input asp-for="HomeClubId" class="form-control" />
-                <span asp-validation-for="HomeClubId" class="text-danger"></span>
+                @*<input asp-for="HomeClubId" class="form-control" />*@
+                <span asp-validation-for="HomeClubId" class="text-danger bg-warning"></span>
+                <select asp-for="HomeClubId" asp-items="@ViewBag.clubs" class="form-control" id="homeClubId">
+                    @* <option> поле для відображення інф за замовчуванням *@
+                    <option>SELECT HOME CLUB</option>
+                </select>
+                @*- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -*@
             </div>
             <div class="form-group">
+                @*+ введення клубу, що грає на виїзді - вибір з dropdown +++++++++++++++*@
                 <label asp-for="AwayClubId" class="control-label"></label>
-                <input asp-for="AwayClubId" class="form-control" />
-                <span asp-validation-for="AwayClubId" class="text-danger"></span>
+                @*<input asp-for="AwayClubId" class="form-control" />*@
+                <span asp-validation-for="AwayClubId" class="text-danger bg-warning"></span>
+                <select asp-for="AwayClubId" asp-items="@ViewBag.clubs" class="form-control" id="awayClubId">
+                    @* <option> поле для відображення інф за замовчуванням *@
+                    <option>SELECT AWAY CLUB</option>
+                </select>
+                @*- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -*@
             </div>
             <div class="form-group">
+                @*+ введення міста, де проводиться матч - вибір з dropdown +++++++++++++++*@
                 <label asp-for="TownId" class="control-label"></label>
-                <select asp-for="TownId" class ="form-control" asp-items="ViewBag.TownId"></select>
+                <span asp-validation-for="TownId" class="text-danger bg-warning"></span>
+                <select asp-for="TownId" class="form-control" asp-items="ViewBag.TownId" id="townId">
+                    <option>SELECT THE CITY OF THE MATCH</option>
+                </select>
+                @*- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -*@
             </div>
             <div class="form-group">
+                @*+ введення стадіона, де проводиться матч (залежить від обраного міста (реалізовано скрипт на подію onchange)) - вибір з dropdown +++++++++++++++*@
                 <label asp-for="StadiumId" class="control-label"></label>
-                <select asp-for="StadiumId" class ="form-control" asp-items="ViewBag.StadiumId"></select>
+                <select asp-for="StadiumId" class="form-control" asp-items="ViewBag.StadiumId" id="StadiumId">
+                    <option>SELECT THE STADIUM OF THE MATCH</option>
+                </select>
+                @*- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -*@
             </div>
             <div class="form-group">
                 <label asp-for="MatchResult" class="control-label"></label>
+                <span asp-validation-for="MatchResult" class="text-danger bg-warning"></span>
                 <input asp-for="MatchResult" class="form-control" />
-                <span asp-validation-for="MatchResult" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MatchDescription" class="control-label"></label>
-                <input asp-for="MatchDescription" class="form-control" />
-                <span asp-validation-for="MatchDescription" class="text-danger"></span>
+                @*<input asp-for="MatchDescription" class="form-control" />*@
+                <span asp-validation-for="MatchDescription" class="text-danger bg-warning"></span>
+                <textarea asp-for="MatchDescription" class="form-control" id="matchDescription" rows="10" placeholder="Enter a few words of description"></textarea>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="MatchIsOver" /> @Html.DisplayNameFor(model => model.MatchIsOver)
+                    <input class="form-check-input" asp-for="MatchIsOver" />
+                    @*@Html.DisplayNameFor(model => model.MatchIsOver)*@
+                    Select if the match is over
                 </label>
             </div>
             <div class="form-group">
@@ -59,9 +83,15 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-danger">MATCHES LIST</a>
+    <a asp-action="Index" asp-controller="Clubs" class="btn btn-danger">APL CLUBS</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $("#townId").on('change', function (event) { AjaxDropDown(event, "GetArenaFromTown", "StadiumId") });
+</script>
 }
+

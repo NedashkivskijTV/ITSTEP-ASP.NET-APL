@@ -7,17 +7,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label for="clubName">CLUB NAME</label>
-                <span asp-validation-for="ClubName" class="text-danger bg-white"></span>
+                <span asp-validation-for="ClubName" class="text-danger bg-warning"></span>
                 <input asp-for="ClubName" type="text" class="form-control" id="clubName" placeholder="Enter club name">
             </div>
             <div class="form-group">
                 <label for="clubNickname">CLUB NICKNAME</label>
-                <span asp-validation-for="ClubNickname" class="text-danger bg-white"></span>
+                <span asp-validation-for="ClubNickname" class="text-danger bg-warning"></span>
                 <input asp-for="ClubNickname" type="text" class="form-control" id="clubNickname" placeholder="Enter club nickname">
             </div>
             <div class="form-group">
                 <label for="clubCrest">CLUB CREST</label>
-                <span asp-validation-for="ClubCrest" class="text-danger bg-white"></span>
+                <span asp-validation-for="ClubCrest" class="text-danger bg-warning"></span>
                 <input asp-for="ClubCrest" class="form-control" id="clubCrest" placeholder="Enter a link to the image of the club crest">
             </div>
             @*- введення міста - вибір зі списка ------------------*@
@@ -43,7 +43,7 @@
             </div>*@
         <div class="form-group">
             <label for="StadiumId">CLUB HOME STADIUM</label>
-            <span asp-validation-for="StadiumId" class="text-danger bg-white"></span>
+            <span asp-validation-for="StadiumId" class="text-danger bg-warning"></span>
             <select asp-for="StadiumId" class="form-control" id="StadiumId">
                 <option>SELECT STADIUM</option>
             </select>
@@ -61,12 +61,12 @@
             @*------------------------------------------------------*@
             <div class="form-group">
                 <label for="clubWebsite">CLUB WEBSITE</label>
-                <span asp-validation-for="ClubWebsite" class="text-danger bg-white"></span>
+                <span asp-validation-for="ClubWebsite" class="text-danger bg-warning"></span>
                 <input asp-for="ClubWebsite" type="text" class="form-control" id="clubWebsite" placeholder="Enter a link to the club website">
             </div>
             <div class="form-group">
                 <label for="clubDescription">CLUB DESCRIPTION</label>
-                <span asp-validation-for="ClubDescription" class="text-danger bg-white"></span>
+                <span asp-validation-for="ClubDescription" class="text-danger bg-warning"></span>
                 <textarea asp-for="ClubDescription" type="text" class="form-control" id="clubDescription" placeholder="Enter a few words of description"></textarea>
             </div>
             
@@ -80,6 +80,9 @@
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 <script>
-    $("#clubTown").on('change', function (event) { AjaxDropDown(event, "GetArenaTown", "StadiumId") });
+    $("#clubTown").on('change', function (event) {
+        //console.log(event.target.value)
+        AjaxDropDown(event, "GetArenaTown", "StadiumId")
+    });
 </script>
 }

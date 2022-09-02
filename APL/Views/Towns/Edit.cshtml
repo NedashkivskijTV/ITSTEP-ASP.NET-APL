@@ -16,13 +16,13 @@
             <input type="hidden" asp-for="TownId" />
             <div class="form-group">
                 <label asp-for="TownName" class="control-label text-white"></label>
+                <span asp-validation-for="TownName" class="text-danger bg-warning"></span>
                 <input asp-for="TownName" class="form-control" />
-                <span asp-validation-for="TownName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TownDescription" class="control-label text-white"></label>
-                @*<input asp-for="TownDescription" class="form-control" />
-                <span asp-validation-for="TownDescription" class="text-danger"></span>*@
+                @*<input asp-for="TownDescription" class="form-control" />*@
+                @*<span asp-validation-for="TownDescription" class="text-danger bg-warning"></span>*@
                 <textarea asp-for="TownDescription" cols="70" rows="7" class="form-control" id="TownDescription"></textarea>
             </div>
             <div class="form-group">

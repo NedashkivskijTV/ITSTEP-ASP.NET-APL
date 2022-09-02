@@ -5,63 +5,111 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1 class="text-white"> Match Details</h1>
 
 <div>
-    <h4>Match</h4>
+    @*<h4>Match</h4>*@
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="row bg-white">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MatchDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MatchDate)
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.MatchDate)*@
+            @Model.MatchDate.ToShortDateString()
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            Match Time
+        </dt>
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.MatchDate)*@
+            @Model.MatchDate.ToShortTimeString()
+        </dd>
+        <dt class="col-sm-2">
+            <hr />
             @Html.DisplayNameFor(model => model.HomeClubId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HomeClubId)
+        <dd class="col-sm-10">
+            <hr />
+            @*@Html.DisplayFor(model => model.HomeClubId)*@
+            <span>
+                @ViewBag.homeClub
+            </span>
+            <span class="float-md-none">
+                @if (!String.IsNullOrEmpty(@ViewBag.homeClubCrest))
+                {
+                    <img src="@ViewBag.homeClubCrest" alt="Club crest" style="width: 100%; max-width: 70px; display: block;" data-holder-rendered="true" />
+                }
+                else
+                {
+                    <img src="/img/APL_2.png" alt="Club crest" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                }
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AwayClubId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AwayClubId)
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.AwayClubId)*@
+            <span>
+                @ViewBag.awayClub
+            </span>
+            <span class="float-md-none">
+                @if (!String.IsNullOrEmpty(@ViewBag.awayClubCrest))
+                {
+                    <img src="@ViewBag.awayClubCrest" alt="Club crest" style="width: 100%; max-width: 70px; display: block;" data-holder-rendered="true" />
+                }
+                else
+                {
+                    <img src="/img/APL_2.png" alt="Club crest" style="width: 100%; max-width: 150px; display: block;" data-holder-rendered="true" />
+                }
+            </span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            <hr />
             @Html.DisplayNameFor(model => model.Town)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
+            <hr />
             @Html.DisplayFor(model => model.Town.TownName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Stadium)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Stadium.StadiumName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MatchResult)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MatchResult)
+        <dd class="col-sm-10">
+            <h2>@Html.DisplayFor(model => model.MatchResult)</h2>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MatchDescription)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MatchDescription)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MatchIsOver)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MatchIsOver)
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.MatchIsOver)*@
+            @{
+                if (Model.MatchIsOver)
+                {
+                    <h5>Match Over</h5>
+                }
+                else
+                {
+                    <h5>Match not played</h5>
+                }
+            }
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MatchId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.MatchId" class="btn btn-primary">EDIT INFO</a> |
+    <a asp-action="Index" class="btn btn-danger">MATCHES LIST</a> |
+    <a asp-action="Delete" asp-route-id="@Model.MatchId" class="btn btn-outline-danger bg-white text-danger">DELETE</a>
 </div>

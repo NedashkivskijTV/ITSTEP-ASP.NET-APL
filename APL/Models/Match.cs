@@ -40,7 +40,7 @@ namespace APL.Models
 
         // /((\d+)(:)(\d+))
         // /([0-9]+:[0-9]+)/g
-        [RegularExpression(@"/([0-9]+:[0-9]+)")]
+        [RegularExpression(@"([0-9]+:[0-9]+)", ErrorMessage = "Valid format - 0:0")]
         [Display(Name = "Match Result")]
         public string MatchResult { get; set; }
 

@@ -22,7 +22,10 @@ namespace APL.Controllers
         // GET: Stadiums
         public async Task<IActionResult> Index()
         {
-            var aplDbContext = _context.Stadiums.Include(s => s.Town);
+            var aplDbContext = _context.Stadiums
+                .Include(s => s.Town)
+                .OrderBy(ss => ss.Town.TownName)
+                .ThenBy(sss => sss.StadiumName);
             return View(await aplDbContext.ToListAsync());
         }
 

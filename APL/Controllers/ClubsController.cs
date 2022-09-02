@@ -184,12 +184,19 @@ namespace APL.Controllers
         }
 
         //методи редагування клуба =====================================================================================================================================================================
+        [HttpGet]
         public IActionResult EditClub(int id)
         {
+            //var club = _db.clubs.Include(c => c.Stadium).ThenInclude(c => c.Town).FirstOrDefault(c => c.Id == id);
+            var club = _db.clubs.Include(c => c.Stadium).Include(c => c.Town).FirstOrDefault(c => c.Id == id);
             ViewBag.clubcoach = new SelectList(_db.Coach.ToList(), "CoachId", "CoachFullName");  // створено для редагування тренера, отриманого зі списку
             ViewBag.towns = new SelectList(_db.Towns.ToList(), "TownId", "TownName");  // створено для редагування міста, отриманого зі списку
+            //ViewBag.clubTownId = _db.Towns.Find(_db.clubs.Find(id).TownId);  // створено для відображення міста
+            //ViewBag.stadiums = new SelectList(_db.Stadiums.Where(s => s.TownId == club.TownId).ToList(), "StadiumId", "StadiumName"); // створено для додавання назви стадіона зі списку
             ViewBag.stadiums = new SelectList(_db.Stadiums.ToList(), "StadiumId", "StadiumName"); // створено для додавання назви стадіона зі списку
-            return View(_db.clubs.Find(id));
+            
+            //return View(_db.clubs.Find(id));
+            return View(club);
         }
 
         [HttpPost] // атрибут вказує на те, що метод буде виконаний у разі здійснення лише запиту типу Post

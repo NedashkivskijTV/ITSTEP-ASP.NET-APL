@@ -22,8 +22,11 @@ namespace APL.Controllers
         // GET: Matches
         public async Task<IActionResult> Index()
         {
+            ViewBag.clubs = new List<Club>(_context.clubs.ToList()); // отримання списку клубів
             var aplDbContext = _context.Matches.Include(m => m.Stadium).Include(m => m.Town);
-            return View(await aplDbContext.ToListAsync());
+            return View(await aplDbContext
+                .OrderByDescending(m => m.MatchDate)
+                .ToListAsync());
         }
 
         // GET: Matches/Details/5
@@ -38,6 +41,10 @@ namespace APL.Controllers
                 .Include(m => m.Stadium)
                 .Include(m => m.Town)
                 .FirstOrDefaultAsync(m => m.MatchId == id);
+            ViewBag.homeClub = _context.clubs.Find(_context.Matches.Find(id).HomeClubId).ClubName;  // створено для відображення HOME клуба
+            ViewBag.homeClubCrest = _context.clubs.Find(_context.Matches.Find(id).HomeClubId).ClubCrest;  // створено для відображення емблеми HOME клуба
+            ViewBag.awayClub = _context.clubs.Find(_context.Matches.Find(id).AwayClubId).ClubName;  // створено для відображення Away клуба
+            ViewBag.awayClubCrest = _context.clubs.Find(_context.Matches.Find(id).AwayClubId).ClubCrest;  // створено для відображення емблеми Away клуба
             if (match == null)
             {
                 return NotFound();
@@ -49,6 +56,7 @@ namespace APL.Controllers
         // GET: Matches/Create
         public IActionResult Create()
         {
+            ViewBag.clubs = new SelectList(_context.clubs.ToList(), "Id", "ClubName"); // додано для отримання списку клубів (dropdown - вибір команд, що грають вдома або на виїзді)
             ViewData["StadiumId"] = new SelectList(_context.Stadiums, "StadiumId", "StadiumName");
             ViewData["TownId"] = new SelectList(_context.Towns, "TownId", "TownName");
             return View();
@@ -67,6 +75,7 @@ namespace APL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.clubs = new SelectList(_context.clubs.ToList(), "Id", "ClubName");
             ViewData["StadiumId"] = new SelectList(_context.Stadiums, "StadiumId", "StadiumName", match.StadiumId);
             ViewData["TownId"] = new SelectList(_context.Towns, "TownId", "TownName", match.TownId);
             return View(match);
@@ -87,6 +96,7 @@ namespace APL.Controllers
             }
             ViewData["StadiumId"] = new SelectList(_context.Stadiums, "StadiumId", "StadiumName", match.StadiumId);
             ViewData["TownId"] = new SelectList(_context.Towns, "TownId", "TownName", match.TownId);
+            ViewBag.clubs = new SelectList(_context.clubs.ToList(), "Id", "ClubName"); // додано для отримання списку клубів (dropdown - вибір команд, що грають вдома або на виїзді)
             return View(match);
         }
 
@@ -139,6 +149,10 @@ namespace APL.Controllers
                 .Include(m => m.Stadium)
                 .Include(m => m.Town)
                 .FirstOrDefaultAsync(m => m.MatchId == id);
+            ViewBag.homeClub = _context.clubs.Find(_context.Matches.Find(id).HomeClubId).ClubName;  // створено для відображення HOME клуба
+            ViewBag.homeClubCrest = _context.clubs.Find(_context.Matches.Find(id).HomeClubId).ClubCrest;  // створено для відображення емблеми HOME клуба
+            ViewBag.awayClub = _context.clubs.Find(_context.Matches.Find(id).AwayClubId).ClubName;  // створено для відображення Away клуба
+            ViewBag.awayClubCrest = _context.clubs.Find(_context.Matches.Find(id).AwayClubId).ClubCrest;  // створено для відображення емблеми Away клуба
             if (match == null)
             {
                 return NotFound();
@@ -162,5 +176,29 @@ namespace APL.Controllers
         {
             return _context.Matches.Any(e => e.MatchId == id);
         }
+
+
+        [HttpGet]
+        public JsonResult GetArenaFromTown(string id)
+        {
+            // дебаг !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (!String.IsNullOrEmpty(id))
+            {
+                var arenas = _context.Stadiums.Where(s => s.Town.TownId == Int32.Parse(id)).ToList();
+                //var arenas = new SelectList(_db.Stadiums.Where(s => s.Town.TownId == Int32.Parse(town)).ToList(), "StadiumId", "StadiumName");
+                return Json(arenas);
+            }
+            return Json("Error");
+        }
+
+
+        [HttpGet]
+        public IActionResult ClubStatistics(int requestStatus) // requestStatus - 0-весь списток, 1-поточний рік, 2-поточний місяць
+        {
+            ViewBag.test = requestStatus;
+            return View(); // 
+        }
+
+
     }
 }
